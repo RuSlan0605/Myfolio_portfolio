@@ -25,7 +25,8 @@ class Post(models.Model):
         FINISHED = 'FSHD', 'FINISHED'
         UNFINISHED = 'UFSHD', 'UNFINISHED'
 
-    title = models.CharField(max_length=250,)
+    title = models.CharField(max_length=250)
+    slug = models.SlugField()
     image = models.ImageField(upload_to='images/post', blank=True, null=True)
     descrip  = models.TextField()
     data = models.DateField(auto_now=timezone.now())
@@ -65,13 +66,14 @@ class Members(models.Model):
 
     first_name = models.CharField(max_length=20)
     last_name = models.CharField(max_length=30)
+    slug = models.SlugField()
     email = models.EmailField()
     image = models.ImageField(upload_to='images/members', blank=True, null=True)
     role = models.ForeignKey(Role, on_delete=models.CASCADE)
-    insta_link = models.CharField(max_length=300)
-    git_link = models.CharField(max_length=300)
-    tg_link = models.CharField(max_length=300)
-    port_link = models.CharField(max_length=300)
+    insta_link = models.URLField(max_length=100, blank=True, null=True)
+    git_link = models.URLField(max_length=100, blank=True, null=True)
+    tg_link = models.URLField(max_length=100, blank=True, null=True)
+    port_link = models.URLField(max_length=100, blank=True, null=True)
     status = models.CharField(max_length=30, choices=Status.choices, default=Status.INACTIVE_MEMB)
 
     objects = models.Manager()
