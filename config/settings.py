@@ -40,6 +40,7 @@ THIRD_PARTY_APPS = [
     'rest_framework.authtoken',
     'corsheaders',
     'drf_spectacular',
+    'easy_thumbnails',
 ]
 
 INSTALLED_APPS = INSTALLED_APPS + LOCAL_APPS + THIRD_PARTY_APPS 
@@ -171,4 +172,11 @@ SPECTACULAR_SETTINGS = {
     "DESCRIPTION": 'A sample blog to learn about DRF',
     'VERSION': "1.0.0",
     #OTHER SETTINGS
+}
+
+THUMBNAIL_ALIASES = {
+    '': {
+        'small': {'size': (100, 100), 'crop': True},
+        'medium': {'size': (300, 300), 'crop': False},
+    },
 }

@@ -5,14 +5,14 @@ from .models import Post,Members,Categories,Role
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
 
-    list_display = ['id', 'title', 'data']
+    list_display = ['id', 'title', 'image_tag', 'data']
     list_display_links = ['id', 'title']
     list_filter = ['title']
 
 @admin.register(Members)
 class MembersAdmin(admin.ModelAdmin):
 
-    list_display = ['id', 'first_name', 'last_name', 'email']
+    list_display = ['id', 'first_name', 'last_name', 'image_tag', 'email']
     list_display_links = ['id', 'first_name', 'last_name']
     list_filter = ['role']
     ordering = ['first_name', 'last_name']

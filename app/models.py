@@ -1,5 +1,7 @@
 from django.db import models
 from django.db.models.query import QuerySet
+from django.utils.html import mark_safe
+from easy_thumbnails.fields import ThumbnailerImageField
 from django.utils import timezone
 
 # Create your models here.
@@ -27,7 +29,7 @@ class Post(models.Model):
 
     title = models.CharField(max_length=250)
     slug = models.SlugField()
-    image = models.ImageField(upload_to='images/post', blank=True, null=True)
+    image = ThumbnailerImageField(upload_to='images/post', blank=True, null=True)
     descrip  = models.TextField()
     data = models.DateField(auto_now=timezone.now())
     category = models.ForeignKey(Categories,on_delete=models.CASCADE)
@@ -38,6 +40,12 @@ class Post(models.Model):
 
     def __str__(self) -> str:
         return self.title
+    
+    def image_tag(self):
+        return mark_safe(
+            '<img src="%s" width="100px" height="80px" />' % (self.image.url)
+        )
+    image_tag.short_description = 'Image'
     
     class Meta:
         verbose_name_plural = 'Посты'
@@ -68,7 +76,7 @@ class Members(models.Model):
     last_name = models.CharField(max_length=30)
     slug = models.SlugField()
     email = models.EmailField()
-    image = models.ImageField(upload_to='images/members', blank=True, null=True)
+    image = ThumbnailerImageField(upload_to='images/members', blank=True, null=True)
     role = models.ForeignKey(Role, on_delete=models.CASCADE)
     insta_link = models.URLField(max_length=100, blank=True, null=True)
     git_link = models.URLField(max_length=100, blank=True, null=True)
@@ -85,6 +93,12 @@ class Members(models.Model):
 
     def __str__(self) -> str:
         return f'{self.first_name} {self.last_name}'
+    
+    def image_tag(self):
+        return mark_safe(
+            '<img src="%s" width="100px" height="80px" />' % (self.image.url)
+        )
+    image_tag.short_description = 'image'
 
 
 
